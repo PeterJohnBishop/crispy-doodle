@@ -1,4 +1,4 @@
-package main
+package openai
 
 import (
 	"log"
@@ -9,7 +9,7 @@ import (
 	"github.com/openai/openai-go/option"
 )
 
-func Open() *openai.Client {
+func OpenAI() *openai.Client {
 
 	err := godotenv.Load()
 	if err != nil {
