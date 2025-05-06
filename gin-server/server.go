@@ -1,0 +1,54 @@
+package ginserver
+
+import (
+	"database/sql"
+	"log"
+	"net/http"
+	"time"
+
+	openai "crispy-doodle/main.go/open-ai"
+	postgresdb "crispy-doodle/main.go/postgres-db"
+
+	"github.com/gin-gonic/gin"
+	_ "github.com/lib/pq"
+)
+
+var db *sql.DB
+
+func StartGinServer() {
+
+	// connecting to OpenAI
+	ai := openai.OpenAI()
+	if ai == nil {
+		log.Fatal("Error connecting to OpenAI")
+	}
+
+	// connecting to Postgres
+	db := postgresdb.ConnectPSQL(db)
+	err := db.Ping()
+	if err != nil {
+		log.Fatal("Error connecting to the database:", err)
+	}
+	defer db.Close()
+
+	// creating gin server
+	gin.SetMode(gin.ReleaseMode)
+	router := gin.Default()
+	router.GET("/", func(c *gin.Context) {
+		c.JSON(http.StatusOK, gin.H{
+			"ai":       "OpenAI connected",
+			"database": "Postgres connected",
+			"server":   "Gin server running",
+		})
+	})
+	s := &http.Server{
+		Addr:           ":8080",
+		Handler:        router,
+		ReadTimeout:    10 * time.Second,
+		WriteTimeout:   10 * time.Second,
+		MaxHeaderBytes: 0,
+	}
+
+	log.Println("[CONNECTED] Gin server on :8080")
+	s.ListenAndServe()
+}

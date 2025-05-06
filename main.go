@@ -1,11 +1,9 @@
 package main
 
 import (
-	"crispy-doodle/main.go/openai"
-	"fmt"
+	ginserver "crispy-doodle/main.go/gin-server"
 )
 
 func main() {
-	fmt.Println("ready.")
-	openai.OpenAI()
+	ginserver.StartGinServer()
 }

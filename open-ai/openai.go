@@ -15,12 +15,11 @@ func OpenAI() *openai.Client {
 	if err != nil {
 		log.Fatal("Error loading .env file")
 	}
-
 	key := os.Getenv("OPENAI_API_KEY")
-
 	client := openai.NewClient(
 		option.WithAPIKey(key),
 	)
-	log.Printf("Connected to OpenAI\n")
+
+	log.Printf("[CONNECTED] to OpenAI")
 	return &client
 }
