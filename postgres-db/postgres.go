@@ -15,8 +15,8 @@ func ConnectPSQL(db *sql.DB) *sql.DB {
 		log.Fatal("Error loading .env file")
 	}
 
-	host := "localhost"
-	// host := "postgres" for docker-compose
+	//host := "localhost"
+	host := "postgres"
 	port := 5432
 	user := os.Getenv("PSQL_USER")
 	password := os.Getenv("PSQL_PASSWORD")

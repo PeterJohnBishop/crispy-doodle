@@ -31,10 +31,17 @@ func StartGinServer() {
 	}
 	defer db.Close()
 
+	postgresdb.CreateUsersTable(db)
+
 	// creating gin server
 	gin.SetMode(gin.ReleaseMode)
 	router := gin.Default()
 	router.GET("/", func(c *gin.Context) {
+		c.JSON(http.StatusOK, gin.H{
+			"msg": "crispy-doodle",
+		})
+	})
+	router.GET("/health", func(c *gin.Context) {
 		c.JSON(http.StatusOK, gin.H{
 			"ai":       "OpenAI connected",
 			"database": "Postgres connected",
@@ -48,6 +55,8 @@ func StartGinServer() {
 		WriteTimeout:   10 * time.Second,
 		MaxHeaderBytes: 0,
 	}
+
+	addUserRoutes(router, db)
 
 	log.Println("[CONNECTED] Gin server on :8080")
 	s.ListenAndServe()

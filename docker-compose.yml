@@ -1,0 +1,34 @@
+services:
+  postgres:
+    image: postgres:17
+    container_name: postgres
+    restart: always
+    env_file:
+      - .env
+    environment:
+       POSTGRES_USER: ${PSQL_USER}
+       POSTGRES_PASSWORD: ${PSQL_PASSWORD}
+       POSTGRES_DB: ${PSQL_DBNAME}
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  app:
+    build: .
+    container_name: crispy-doodle
+    restart: always
+    depends_on:
+      - postgres
+    environment:
+      GIN_PORT: ${GIN_PORT}
+      PSQL_HOST: postgres
+      PSQL_PORT: 5432
+      PSQL_USER: ${PSQL_USER}
+      PSQL_PASSWORD: ${PSQL_PASSWORD}
+      PSQL_DBNAME: ${PSQL_DBNAME}
+    ports:
+      - "8080:8080"
+
+volumes:
+  postgres_data:
