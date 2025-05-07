@@ -27,3 +27,21 @@ func addUserRoutes(r *gin.Engine, db *sql.DB) {
 		postgresdb.DeleteUserByID(db, c)
 	})
 }
+
+func addMessageRoutes(r *gin.Engine, db *sql.DB) {
+	r.POST("/messages", func(c *gin.Context) {
+		postgresdb.CreateMessage(db, c)
+	})
+	r.GET("/messages", func(c *gin.Context) {
+		postgresdb.GetMessages(db, c)
+	})
+	r.GET("/messages/:id", func(c *gin.Context) {
+		postgresdb.GetMessageById(db, c)
+	})
+	r.PUT("/messages/:id", func(c *gin.Context) {
+		postgresdb.UpdateMessageByID(db, c)
+	})
+	r.DELETE("/messages/:id", func(c *gin.Context) {
+		postgresdb.DeleteMessageByID(db, c)
+	})
+}

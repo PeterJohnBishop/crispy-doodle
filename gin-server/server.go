@@ -57,6 +57,7 @@ func StartGinServer() {
 	}
 
 	addUserRoutes(router, db)
+	addMessageRoutes(router, db)
 
 	log.Println("[CONNECTED] Gin server on :8080")
 	s.ListenAndServe()
