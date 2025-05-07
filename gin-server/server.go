@@ -6,6 +6,7 @@ import (
 	"net/http"
 	"time"
 
+	"crispy-doodle/main.go/awservice"
 	openai "crispy-doodle/main.go/open-ai"
 	postgresdb "crispy-doodle/main.go/postgres-db"
 
@@ -16,6 +17,12 @@ import (
 var db *sql.DB
 
 func StartGinServer() {
+
+	// connect to AWS
+	cfg := awservice.StartAws()
+
+	// connect to AWS S3
+	s3Client := awservice.ConnectS3(cfg)
 
 	// connecting to OpenAI
 	ai := openai.OpenAI()
@@ -43,6 +50,7 @@ func StartGinServer() {
 	})
 	router.GET("/health", func(c *gin.Context) {
 		c.JSON(http.StatusOK, gin.H{
+			"aws_s3":   "AWS S3 connected",
 			"ai":       "OpenAI connected",
 			"database": "Postgres connected",
 			"server":   "Gin server running",
@@ -58,6 +66,7 @@ func StartGinServer() {
 
 	addUserRoutes(router, db)
 	addMessageRoutes(router, db)
+	addAWSRoutes(router, s3Client)
 
 	log.Println("[CONNECTED] Gin server on :8080")
 	s.ListenAndServe()

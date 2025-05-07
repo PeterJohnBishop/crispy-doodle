@@ -1,9 +1,11 @@
 package ginserver
 
 import (
+	"crispy-doodle/main.go/awservice"
 	postgresdb "crispy-doodle/main.go/postgres-db"
 	"database/sql"
 
+	"github.com/aws/aws-sdk-go-v2/service/s3"
 	"github.com/gin-gonic/gin"
 )
 
@@ -43,5 +45,14 @@ func addMessageRoutes(r *gin.Engine, db *sql.DB) {
 	})
 	r.DELETE("/messages/:id", func(c *gin.Context) {
 		postgresdb.DeleteMessageByID(db, c)
+	})
+}
+
+func addAWSRoutes(r *gin.Engine, s3Client *s3.Client) {
+	r.POST("/upload", func(c *gin.Context) {
+		awservice.UploadFileToS3(s3Client, c)
+	})
+	r.GET("/download/:filename", func(c *gin.Context) {
+		awservice.DownloadFileFromS3(s3Client, c)
 	})
 }
