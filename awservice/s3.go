@@ -25,11 +25,7 @@ func ConnectS3(cfg aws.Config) *s3.Client {
 }
 
 func UploadFileToS3(s3Client *s3.Client, c *gin.Context) {
-	err := godotenv.Load()
-	if err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to load .env file"})
-		return
-	}
+
 	bucketName := os.Getenv("AWS_BUCKET")
 
 	// Read the uploaded file
