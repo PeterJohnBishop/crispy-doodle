@@ -13,7 +13,7 @@ import (
 type Channel struct {
 	ID       string   `json:"id"`
 	Title    string   `json:"text"`
-	Messages []string `json:"images"`
+	Messages []string `json:"messages"`
 	Created  int64    `json:"created"`
 	Updated  int64    `json:"updated"`
 }

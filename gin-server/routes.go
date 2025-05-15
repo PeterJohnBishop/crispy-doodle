@@ -16,6 +16,9 @@ func addUserRoutes(r *gin.Engine, db *sql.DB) {
 	r.POST("/register", func(c *gin.Context) {
 		postgresdb.RegisterUser(db, c)
 	})
+	r.GET("/refresh", func(c *gin.Context) {
+		postgresdb.RefreshTokenHandler(db)
+	})
 	r.GET("/users", func(c *gin.Context) {
 		postgresdb.GetUsers(db, c)
 	})
@@ -54,5 +57,23 @@ func addAWSRoutes(r *gin.Engine, s3Client *s3.Client) {
 	})
 	r.GET("/download/:filename", func(c *gin.Context) {
 		awservice.DownloadFileFromS3(s3Client, c)
+	})
+}
+
+func addChannelRoutes(r *gin.Engine, db *sql.DB) {
+	r.POST("/channels", func(c *gin.Context) {
+		postgresdb.CreateChannel(db, c)
+	})
+	r.GET("/channels", func(c *gin.Context) {
+		postgresdb.GetChannels(db, c)
+	})
+	r.GET("/channels/:id", func(c *gin.Context) {
+		postgresdb.GetChannelByID(db, c)
+	})
+	r.PUT("/channels/:id", func(c *gin.Context) {
+		postgresdb.UpdateChannelByID(db, c)
+	})
+	r.DELETE("/channels/:id", func(c *gin.Context) {
+		postgresdb.DeleteChannelByID(db, c)
 	})
 }

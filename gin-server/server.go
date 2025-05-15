@@ -66,6 +66,7 @@ func StartGinServer() {
 	}
 
 	addUserRoutes(router, db)
+	addChannelRoutes(router, db)
 	addMessageRoutes(router, db)
 	addAWSRoutes(router, s3Client)
 

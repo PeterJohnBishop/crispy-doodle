@@ -1,0 +1,563 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXContainerItemProxy section */
+		BABC424F2DD2590400616A7B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BABC42372DD2590300616A7B /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = BABC423E2DD2590300616A7B;
+			remoteInfo = "ios-crispy-doodle";
+		};
+		BABC42592DD2590400616A7B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BABC42372DD2590300616A7B /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = BABC423E2DD2590300616A7B;
+			remoteInfo = "ios-crispy-doodle";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		BABC423F2DD2590300616A7B /* ios-crispy-doodle.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "ios-crispy-doodle.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		BABC424E2DD2590400616A7B /* ios-crispy-doodleTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "ios-crispy-doodleTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		BABC42582DD2590400616A7B /* ios-crispy-doodleUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "ios-crispy-doodleUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		BABC42412DD2590300616A7B /* ios-crispy-doodle */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = "ios-crispy-doodle";
+			sourceTree = "<group>";
+		};
+		BABC42512DD2590400616A7B /* ios-crispy-doodleTests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = "ios-crispy-doodleTests";
+			sourceTree = "<group>";
+		};
+		BABC425B2DD2590400616A7B /* ios-crispy-doodleUITests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = "ios-crispy-doodleUITests";
+			sourceTree = "<group>";
+		};
+/* End PBXFileSystemSynchronizedRootGroup section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		BABC423C2DD2590300616A7B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BABC424B2DD2590400616A7B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BABC42552DD2590400616A7B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		BABC42362DD2590300616A7B = {
+			isa = PBXGroup;
+			children = (
+				BABC42412DD2590300616A7B /* ios-crispy-doodle */,
+				BABC42512DD2590400616A7B /* ios-crispy-doodleTests */,
+				BABC425B2DD2590400616A7B /* ios-crispy-doodleUITests */,
+				BABC42402DD2590300616A7B /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		BABC42402DD2590300616A7B /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				BABC423F2DD2590300616A7B /* ios-crispy-doodle.app */,
+				BABC424E2DD2590400616A7B /* ios-crispy-doodleTests.xctest */,
+				BABC42582DD2590400616A7B /* ios-crispy-doodleUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		BABC423E2DD2590300616A7B /* ios-crispy-doodle */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = BABC42622DD2590400616A7B /* Build configuration list for PBXNativeTarget "ios-crispy-doodle" */;
+			buildPhases = (
+				BABC423B2DD2590300616A7B /* Sources */,
+				BABC423C2DD2590300616A7B /* Frameworks */,
+				BABC423D2DD2590300616A7B /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				BABC42412DD2590300616A7B /* ios-crispy-doodle */,
+			);
+			name = "ios-crispy-doodle";
+			packageProductDependencies = (
+			);
+			productName = "ios-crispy-doodle";
+			productReference = BABC423F2DD2590300616A7B /* ios-crispy-doodle.app */;
+			productType = "com.apple.product-type.application";
+		};
+		BABC424D2DD2590400616A7B /* ios-crispy-doodleTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = BABC42652DD2590400616A7B /* Build configuration list for PBXNativeTarget "ios-crispy-doodleTests" */;
+			buildPhases = (
+				BABC424A2DD2590400616A7B /* Sources */,
+				BABC424B2DD2590400616A7B /* Frameworks */,
+				BABC424C2DD2590400616A7B /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				BABC42502DD2590400616A7B /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				BABC42512DD2590400616A7B /* ios-crispy-doodleTests */,
+			);
+			name = "ios-crispy-doodleTests";
+			packageProductDependencies = (
+			);
+			productName = "ios-crispy-doodleTests";
+			productReference = BABC424E2DD2590400616A7B /* ios-crispy-doodleTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		BABC42572DD2590400616A7B /* ios-crispy-doodleUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = BABC42682DD2590400616A7B /* Build configuration list for PBXNativeTarget "ios-crispy-doodleUITests" */;
+			buildPhases = (
+				BABC42542DD2590400616A7B /* Sources */,
+				BABC42552DD2590400616A7B /* Frameworks */,
+				BABC42562DD2590400616A7B /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				BABC425A2DD2590400616A7B /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				BABC425B2DD2590400616A7B /* ios-crispy-doodleUITests */,
+			);
+			name = "ios-crispy-doodleUITests";
+			packageProductDependencies = (
+			);
+			productName = "ios-crispy-doodleUITests";
+			productReference = BABC42582DD2590400616A7B /* ios-crispy-doodleUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		BABC42372DD2590300616A7B /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1630;
+				LastUpgradeCheck = 1630;
+				TargetAttributes = {
+					BABC423E2DD2590300616A7B = {
+						CreatedOnToolsVersion = 16.3;
+					};
+					BABC424D2DD2590400616A7B = {
+						CreatedOnToolsVersion = 16.3;
+						TestTargetID = BABC423E2DD2590300616A7B;
+					};
+					BABC42572DD2590400616A7B = {
+						CreatedOnToolsVersion = 16.3;
+						TestTargetID = BABC423E2DD2590300616A7B;
+					};
+				};
+			};
+			buildConfigurationList = BABC423A2DD2590300616A7B /* Build configuration list for PBXProject "ios-crispy-doodle" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = BABC42362DD2590300616A7B;
+			minimizedProjectReferenceProxies = 1;
+			preferredProjectObjectVersion = 77;
+			productRefGroup = BABC42402DD2590300616A7B /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				BABC423E2DD2590300616A7B /* ios-crispy-doodle */,
+				BABC424D2DD2590400616A7B /* ios-crispy-doodleTests */,
+				BABC42572DD2590400616A7B /* ios-crispy-doodleUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		BABC423D2DD2590300616A7B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BABC424C2DD2590400616A7B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BABC42562DD2590400616A7B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		BABC423B2DD2590300616A7B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BABC424A2DD2590400616A7B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BABC42542DD2590400616A7B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		BABC42502DD2590400616A7B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = BABC423E2DD2590300616A7B /* ios-crispy-doodle */;
+			targetProxy = BABC424F2DD2590400616A7B /* PBXContainerItemProxy */;
+		};
+		BABC425A2DD2590400616A7B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = BABC423E2DD2590300616A7B /* ios-crispy-doodle */;
+			targetProxy = BABC42592DD2590400616A7B /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		BABC42602DD2590400616A7B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = 6W56PZLJZG;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.4;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		BABC42612DD2590400616A7B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = 6W56PZLJZG;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.4;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		BABC42632DD2590400616A7B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 6W56PZLJZG;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.peterjbishop.denver.ios-crispy-doodle";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		BABC42642DD2590400616A7B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 6W56PZLJZG;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.peterjbishop.denver.ios-crispy-doodle";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		BABC42662DD2590400616A7B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 6W56PZLJZG;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.4;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.peterjbishop.denver.ios-crispy-doodleTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ios-crispy-doodle.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/ios-crispy-doodle";
+			};
+			name = Debug;
+		};
+		BABC42672DD2590400616A7B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 6W56PZLJZG;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.4;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.peterjbishop.denver.ios-crispy-doodleTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ios-crispy-doodle.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/ios-crispy-doodle";
+			};
+			name = Release;
+		};
+		BABC42692DD2590400616A7B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 6W56PZLJZG;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.peterjbishop.denver.ios-crispy-doodleUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = "ios-crispy-doodle";
+			};
+			name = Debug;
+		};
+		BABC426A2DD2590400616A7B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 6W56PZLJZG;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.peterjbishop.denver.ios-crispy-doodleUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = "ios-crispy-doodle";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		BABC423A2DD2590300616A7B /* Build configuration list for PBXProject "ios-crispy-doodle" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BABC42602DD2590400616A7B /* Debug */,
+				BABC42612DD2590400616A7B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		BABC42622DD2590400616A7B /* Build configuration list for PBXNativeTarget "ios-crispy-doodle" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BABC42632DD2590400616A7B /* Debug */,
+				BABC42642DD2590400616A7B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		BABC42652DD2590400616A7B /* Build configuration list for PBXNativeTarget "ios-crispy-doodleTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BABC42662DD2590400616A7B /* Debug */,
+				BABC42672DD2590400616A7B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		BABC42682DD2590400616A7B /* Build configuration list for PBXNativeTarget "ios-crispy-doodleUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BABC42692DD2590400616A7B /* Debug */,
+				BABC426A2DD2590400616A7B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = BABC42372DD2590300616A7B /* Project object */;
+}
