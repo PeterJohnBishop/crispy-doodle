@@ -43,7 +43,7 @@ func StartGinServer() {
 	// creating gin server
 	gin.SetMode(gin.ReleaseMode)
 	router := gin.Default()
-	router.Use(postgresdb.VerifyJWT())
+	router.Use(postgresdb.JWTMiddleware())
 	router.GET("/", func(c *gin.Context) {
 		c.JSON(http.StatusOK, gin.H{
 			"msg": "crispy-doodle",

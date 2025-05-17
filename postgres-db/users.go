@@ -6,10 +6,8 @@ import (
 	"encoding/binary"
 	"fmt"
 	"net/http"
-	"time"
 
 	"github.com/gin-gonic/gin"
-	"github.com/golang-jwt/jwt"
 	"github.com/lib/pq"
 	"golang.org/x/crypto/bcrypt"
 )
@@ -135,99 +133,38 @@ func Login(db *sql.DB, c *gin.Context) {
 	}
 	fmt.Println("Password verified for user:", user.ID)
 
-	userClaims := UserClaims{
-		ID:    user.ID,
-		Name:  user.Name,
-		Email: user.Email,
-		StandardClaims: jwt.StandardClaims{
-			IssuedAt:  time.Now().Unix(),
-			ExpiresAt: time.Now().Add(15 * time.Minute).Unix(),
-		},
-	}
-
-	token, err := NewAccessToken(userClaims)
-	if err != nil {
-		fmt.Println("Failed to generate access token:", err)
-		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to generate authentication token"})
-		return
-	}
-	fmt.Println("Access token generated")
-
-	refreshToken, err := NewRefreshToken(userClaims.StandardClaims)
-	if err != nil {
-		fmt.Println("Failed to generate refresh token:", err)
-		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to generate refresh token"})
-		return
-	}
-	fmt.Println("Refresh token generated")
+	access, refresh, err := GenerateTokens(user.ID)
 
 	fmt.Println("Login successful for user:", user.ID)
 	c.JSON(http.StatusOK, gin.H{
 		"message":      "Login Success",
-		"token":        token,
-		"refreshToken": refreshToken,
+		"token":        access,
+		"refreshToken": refresh,
 		"user":         user,
 	})
 }
-
-func RefreshTokenHandler(db *sql.DB) gin.HandlerFunc {
-	return func(c *gin.Context) {
-		const userIDKey ContextKey = "userID"
-
-		id, ok := c.Request.Context().Value(userIDKey).(string)
-		if !ok || id == "" {
-			fmt.Println("Missing user ID in context")
-			c.JSON(http.StatusInternalServerError, gin.H{"error": "ID not found in context"})
-			return
-		}
-		fmt.Println("Refreshing token for user ID:", id)
-
-		var user User
-		query := `SELECT id, name, email, password, online, channels, created, updated FROM users WHERE id = $1`
-		err := db.QueryRowContext(c, query, id).Scan(&user.ID, &user.Name, &user.Email, &user.Password, &user.Online, &user.Channels, &user.Created, &user.Updated)
-		if err == sql.ErrNoRows {
-			fmt.Println("User not found with ID:", id)
-			c.JSON(http.StatusNotFound, gin.H{"error": "User not found"})
-			return
-		} else if err != nil {
-			fmt.Println("Database error while fetching user:", err)
-			c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
-			return
-		}
-
-		fmt.Println("User retrieved successfully")
-
-		userClaims := UserClaims{
-			ID:    user.ID,
-			Name:  user.Name,
-			Email: user.Email,
-			StandardClaims: jwt.StandardClaims{
-				IssuedAt:  time.Now().Unix(),
-				ExpiresAt: time.Now().Add(15 * time.Minute).Unix(),
-			},
-		}
-
-		token, err := NewAccessToken(userClaims)
-		if err != nil {
-			fmt.Println("Failed to generate access token:", err)
-			c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to generate authentication token"})
-			return
-		}
-
-		refreshToken, err := NewRefreshToken(userClaims.StandardClaims)
-		if err != nil {
-			fmt.Println("Failed to generate refresh token:", err)
-			c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to generate refresh token"})
-			return
-		}
-
-		fmt.Println("New tokens issued for user:", user.ID)
-		c.JSON(http.StatusOK, gin.H{
-			"message":      "Token Refreshed",
-			"token":        token,
-			"refreshToken": refreshToken,
-		})
+func Refresh(c *gin.Context) {
+	var body struct {
+		RefreshToken string `json:"refresh_token"`
 	}
+	if err := c.ShouldBindJSON(&body); err != nil || body.RefreshToken == "" {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Missing refresh token"})
+		return
+	}
+
+	claims, err := ValidateToken(body.RefreshToken, true)
+	if err != nil {
+		c.JSON(http.StatusUnauthorized, gin.H{"error": "Invalid refresh token"})
+		return
+	}
+
+	newAccess, _, err := GenerateTokens(claims.ID)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to generate new token"})
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{"access_token": newAccess})
 }
 
 func GetUsers(db *sql.DB, c *gin.Context) {

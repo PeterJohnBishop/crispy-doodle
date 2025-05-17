@@ -17,7 +17,7 @@ func addUserRoutes(r *gin.Engine, db *sql.DB) {
 		postgresdb.RegisterUser(db, c)
 	})
 	r.GET("/refresh", func(c *gin.Context) {
-		postgresdb.RefreshTokenHandler(db)
+		postgresdb.Refresh(c)
 	})
 	r.GET("/users", func(c *gin.Context) {
 		postgresdb.GetUsers(db, c)

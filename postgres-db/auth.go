@@ -1,7 +1,7 @@
 package postgresdb
 
 import (
-	"context"
+	"errors"
 	"net/http"
 	"os"
 	"strings"
@@ -11,109 +11,81 @@ import (
 	"github.com/golang-jwt/jwt"
 )
 
-var AccessTokenSecret = []byte(os.Getenv("TOKEN_SECRET"))
-var RefreshTokenSecret = []byte(os.Getenv("REFRESH_TOKEN_SECRET"))
-var AccessTokenTTL = time.Minute * 15
-var RefreshTokenTTL = time.Hour * 24 * 7
+var accessSecret = []byte(os.Getenv("TOKEN_SECRET"))
+var refreshSecret = []byte(os.Getenv("REFRESH_TOKEN_SECRET"))
 
 type UserClaims struct {
-	ID    string `json:"id"`
-	Name  string `json:"name"`
-	Email string `json:"email"`
+	ID string `json:"id"`
 	jwt.StandardClaims
 }
 
-func NewAccessToken(claims UserClaims) (string, error) {
-	accessToken := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
-
-	return accessToken.SignedString([]byte(os.Getenv("TOKEN_SECRET")))
-}
-
-func NewRefreshToken(claims jwt.StandardClaims) (string, error) {
-	refreshToken := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
-
-	return refreshToken.SignedString([]byte(os.Getenv("TOKEN_SECRET")))
-}
-
-func ParseAccessToken(accessToken string) *UserClaims {
-	parsedAccessToken, err := jwt.ParseWithClaims(accessToken, &UserClaims{}, func(token *jwt.Token) (interface{}, error) {
-		return []byte(os.Getenv("TOKEN_SECRET")), nil
-	})
-	if err != nil || !parsedAccessToken.Valid {
-		return nil
+func GenerateTokens(userID string) (accessToken, refreshToken string, err error) {
+	accessClaims := UserClaims{
+		ID: userID,
+		StandardClaims: jwt.StandardClaims{
+			ExpiresAt: time.Now().Add(15 * time.Minute).Unix(),
+			IssuedAt:  time.Now().Unix(),
+		},
 	}
 
-	return parsedAccessToken.Claims.(*UserClaims)
-}
-
-func ParseRefreshToken(refreshToken string) *jwt.StandardClaims {
-	parsedRefreshToken, err := jwt.ParseWithClaims(refreshToken, &jwt.StandardClaims{}, func(token *jwt.Token) (interface{}, error) {
-		return []byte(os.Getenv("TOKEN_SECRET")), nil
-	})
-	if err != nil || !parsedRefreshToken.Valid {
-		return nil
+	refreshClaims := UserClaims{
+		ID: userID,
+		StandardClaims: jwt.StandardClaims{
+			ExpiresAt: time.Now().Add(7 * 24 * time.Hour).Unix(),
+			IssuedAt:  time.Now().Unix(),
+		},
 	}
 
-	return parsedRefreshToken.Claims.(*jwt.StandardClaims)
+	at := jwt.NewWithClaims(jwt.SigningMethodHS256, accessClaims)
+	rt := jwt.NewWithClaims(jwt.SigningMethodHS256, refreshClaims)
+
+	accessToken, err = at.SignedString(accessSecret)
+	if err != nil {
+		return
+	}
+	refreshToken, err = rt.SignedString(refreshSecret)
+	return
 }
 
-type ContextKey string
+func ValidateToken(tokenStr string, isRefresh bool) (*UserClaims, error) {
+	secret := accessSecret
+	if isRefresh {
+		secret = refreshSecret
+	}
 
-const UserIDKey ContextKey = "userID"
+	token, err := jwt.ParseWithClaims(tokenStr, &UserClaims{}, func(token *jwt.Token) (interface{}, error) {
+		return secret, nil
+	})
 
-type VerifyRefreshRequest struct {
-	ID    string `json:"id"`
-	Token string `json:"token"`
+	if err != nil {
+		return nil, err
+	}
+
+	claims, ok := token.Claims.(*UserClaims)
+	if !ok || !token.Valid {
+		return nil, errors.New("invalid token")
+	}
+	return claims, nil
 }
 
-func VerifyJWT() gin.HandlerFunc {
+func JWTMiddleware() gin.HandlerFunc {
 	return func(c *gin.Context) {
-		if strings.HasPrefix(c.Request.URL.Path, "/register") || strings.HasPrefix(c.Request.URL.Path, "/login") || strings.HasPrefix(c.Request.URL.Path, "/health") {
-			c.Next()
-			return
-		}
-
 		authHeader := c.GetHeader("Authorization")
 		if authHeader == "" {
-			c.JSON(http.StatusUnauthorized, gin.H{"error": "Authentication Header is missing!"})
+			c.JSON(http.StatusUnauthorized, gin.H{"error": "Missing Authorization header"})
 			c.Abort()
 			return
 		}
 
-		token := strings.TrimPrefix(authHeader, "Bearer ")
-		userClaims := ParseAccessToken(token)
-		if userClaims == nil {
-			c.JSON(http.StatusUnauthorized, gin.H{"error": "Failed to verify token!"})
+		tokenStr := strings.TrimPrefix(authHeader, "Bearer ")
+		claims, err := ValidateToken(tokenStr, false)
+		if err != nil {
+			c.JSON(http.StatusUnauthorized, gin.H{"error": "Invalid token"})
 			c.Abort()
 			return
 		}
 
-		c.Set("userClaims", userClaims)
-
-		c.Next()
-	}
-}
-
-func VerifyRefreshToken() gin.HandlerFunc {
-	return func(c *gin.Context) {
-		var req VerifyRefreshRequest
-
-		if err := c.ShouldBindJSON(&req); err != nil {
-			c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid request body"})
-			c.Abort()
-			return
-		}
-
-		claims := ParseRefreshToken(req.Token)
-		if claims == nil {
-			c.JSON(http.StatusUnauthorized, gin.H{"error": "Failed to verify token!"})
-			c.Abort()
-			return
-		}
-
-		ctx := context.WithValue(c.Request.Context(), UserIDKey, req.ID)
-		c.Request = c.Request.WithContext(ctx)
-
+		c.Set("userID", claims.ID)
 		c.Next()
 	}
 }
