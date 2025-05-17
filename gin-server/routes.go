@@ -9,13 +9,17 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func addUserRoutes(r *gin.Engine, db *sql.DB) {
+func addOpenUserRoutes(r *gin.Engine, db *sql.DB) {
 	r.POST("/login", func(c *gin.Context) {
 		postgresdb.Login(db, c)
 	})
 	r.POST("/register", func(c *gin.Context) {
 		postgresdb.RegisterUser(db, c)
 	})
+}
+
+func addProtectedUserRoutes(r *gin.RouterGroup, db *sql.DB) {
+
 	r.GET("/refresh", func(c *gin.Context) {
 		postgresdb.Refresh(c)
 	})
@@ -33,7 +37,7 @@ func addUserRoutes(r *gin.Engine, db *sql.DB) {
 	})
 }
 
-func addMessageRoutes(r *gin.Engine, db *sql.DB) {
+func addMessageRoutes(r *gin.RouterGroup, db *sql.DB) {
 	r.POST("/messages", func(c *gin.Context) {
 		postgresdb.CreateMessage(db, c)
 	})
@@ -51,7 +55,7 @@ func addMessageRoutes(r *gin.Engine, db *sql.DB) {
 	})
 }
 
-func addAWSRoutes(r *gin.Engine, s3Client *s3.Client) {
+func addAWSRoutes(r *gin.RouterGroup, s3Client *s3.Client) {
 	r.POST("/upload", func(c *gin.Context) {
 		awservice.UploadFileToS3(s3Client, c)
 	})
@@ -60,7 +64,7 @@ func addAWSRoutes(r *gin.Engine, s3Client *s3.Client) {
 	})
 }
 
-func addChannelRoutes(r *gin.Engine, db *sql.DB) {
+func addChannelRoutes(r *gin.RouterGroup, db *sql.DB) {
 	r.POST("/channels", func(c *gin.Context) {
 		postgresdb.CreateChannel(db, c)
 	})

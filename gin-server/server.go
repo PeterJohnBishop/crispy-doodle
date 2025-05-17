@@ -43,7 +43,8 @@ func StartGinServer() {
 	// creating gin server
 	gin.SetMode(gin.ReleaseMode)
 	router := gin.Default()
-	router.Use(postgresdb.JWTMiddleware())
+	protected := router.Group("/api")
+	protected.Use(postgresdb.JWTMiddleware())
 	router.GET("/", func(c *gin.Context) {
 		c.JSON(http.StatusOK, gin.H{
 			"msg": "crispy-doodle",
@@ -65,10 +66,11 @@ func StartGinServer() {
 		MaxHeaderBytes: 0,
 	}
 
-	addUserRoutes(router, db)
-	addChannelRoutes(router, db)
-	addMessageRoutes(router, db)
-	addAWSRoutes(router, s3Client)
+	addOpenUserRoutes(router, db)
+	addProtectedUserRoutes(protected, db)
+	addChannelRoutes(protected, db)
+	addMessageRoutes(protected, db)
+	addAWSRoutes(protected, s3Client)
 
 	log.Println("[CONNECTED] Gin server on :8080")
 	s.ListenAndServe()
