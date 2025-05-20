@@ -69,11 +69,11 @@ func getAWSEnvs() {
 	if AwsSecretKey == "" {
 		log.Fatal("AWS_SECRET_ACCESS_KEY is not set in .env file")
 	}
-	AwsRegion := os.Getenv("AWS_REGION")
+	AwsRegion = os.Getenv("AWS_REGION")
 	if AwsRegion == "" {
 		log.Fatal("AWS_REGION is not set in .env file")
 	}
-	AwsBucket := os.Getenv("AWS_BUCKET")
+	AwsBucket = os.Getenv("AWS_BUCKET")
 	if AwsBucket == "" {
 		log.Fatal("AWS_BUCKET is not set in .env file")
 	}
@@ -84,11 +84,11 @@ func getAWSEnvs() {
 
 func getOpenAIEnvs() {
 
-	OpenAIKey := os.Getenv("OPENAI_API_KEY")
+	OpenAIKey = os.Getenv("OPENAI_API_KEY")
 	if OpenAIKey == "" {
 		log.Fatal("OPENAI_API_KEY is not set in .env file")
 	}
 
-	log.Println("Postgres Environment Variables Loaded")
+	log.Println("AI Environment Variables Loaded")
 
 }

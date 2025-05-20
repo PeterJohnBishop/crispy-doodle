@@ -71,6 +71,7 @@ func StartGinServer() {
 	addChannelRoutes(protected, db)
 	addMessageRoutes(protected, db)
 	addAWSRoutes(protected, s3Client)
+	addProtectedOpenAIRoutes(protected, ai)
 
 	log.Println("[CONNECTED] Gin server on :8080")
 	s.ListenAndServe()

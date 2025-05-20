@@ -2,11 +2,13 @@ package ginserver
 
 import (
 	"crispy-doodle/main.go/awservice"
+	ai "crispy-doodle/main.go/open-ai"
 	postgresdb "crispy-doodle/main.go/postgres-db"
 	"database/sql"
 
 	"github.com/aws/aws-sdk-go-v2/service/s3"
 	"github.com/gin-gonic/gin"
+	openai "github.com/sashabaranov/go-openai"
 )
 
 func addOpenUserRoutes(r *gin.Engine, db *sql.DB) {
@@ -79,5 +81,11 @@ func addChannelRoutes(r *gin.RouterGroup, db *sql.DB) {
 	})
 	r.DELETE("/channels/:id", func(c *gin.Context) {
 		postgresdb.DeleteChannelByID(db, c)
+	})
+}
+
+func addProtectedOpenAIRoutes(r *gin.RouterGroup, openaiClient *openai.Client) {
+	r.POST("/ask", func(c *gin.Context) {
+		ai.QueryOpenAI(openaiClient, c)
 	})
 }

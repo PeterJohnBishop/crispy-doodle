@@ -15,6 +15,7 @@ struct SuccessView: View {
     @State private var refreshToken: String?
     @State private var errorLoading: Bool = false
     @State private var showProfile: Bool = false
+    @State private var foundUsers: Bool = false
     @State private var logout: Bool = false
 
     private func logoutUser() {
@@ -56,7 +57,6 @@ struct SuccessView: View {
                         logoutButton
                     }
                     .padding()
-
                     NavigationView {
                         Group {
                             if userVM.isLoading {
@@ -69,55 +69,50 @@ struct SuccessView: View {
                                     LazyVStack(spacing: 12) {
                                         ForEach(userVM.users) { user in
                                             if user.id != currentUser?.id {
-                                                VStack(alignment: .leading, spacing: 8) {
-                                                    HStack {
-                                                        Button {
-                                                            showProfile = true
-                                                        } label: {
-                                                            Image(systemName: "info.circle.fill")
-                                                                .tint(.black)
-                                                        }
-                                                        .sheet(isPresented: $showProfile) {
-                                                            VStack(alignment: .leading, spacing: 16) {
-                                                                HStack {
-                                                                    Text(user.name).font(.title2).bold()
-                                                                    if user.online {
-                                                                        Image(systemName: "checkmark.circle.fill")
-                                                                            .foregroundColor(.green)
-                                                                    }
-                                                                }
-                                                                Text(user.email).font(.body)
-                                                                Spacer()
-                                                            }
-                                                            .padding()
-                                                        }
-
-                                                        Spacer()
-
-                                                        Button {
-                                                            // Handle action
-                                                        } label: {
-                                                            Image(systemName: "chevron.right").tint(.black)
-                                                        }
+                                            HStack{
+                                                    Button {
+                                                        showProfile = true
+                                                    } label: {
+                                                        Image(systemName: "info.circle.fill")
+                                                            .tint(.black)
                                                     }
-
-                                                    VStack(alignment: .leading, spacing: 4) {
+                                                    .sheet(isPresented: $showProfile) {
+                                                        VStack(alignment: .leading, spacing: 16) {
+                                                            HStack {
+                                                                Text(user.name).font(.title2).bold()
+                                                                if user.online {
+                                                                    Image(systemName: "checkmark.circle.fill")
+                                                                        .foregroundColor(.green)
+                                                                }
+                                                            }
+                                                            Text(user.email).font(.body)
+                                                            Spacer()
+                                                        }
+                                                        .padding()
+                                                    }
+                                                    VStack(alignment: .leading, spacing: 2) {
                                                         Text(user.name)
                                                             .font(.headline)
                                                         Text(user.email)
                                                             .font(.subheadline)
                                                             .foregroundColor(.secondary)
                                                     }
+                                                    Spacer()
+                                                    Button {
+                                                        // Handle action
+                                                    } label: {
+                                                        Image(systemName: "chevron.right").tint(.black)
+                                                    }
                                                 }
+                                                .frame(maxWidth: .infinity, alignment: .leading)
                                                 .padding()
                                                 .background(Color.white)
                                                 .cornerRadius(12)
                                                 .shadow(color: Color.black.opacity(0.1), radius: 4, x: 0, y: 2)
-                                                .padding(.horizontal)
                                             }
                                         }
                                     }
-                                }
+                                }.padding()
 
                             }
                         }
@@ -146,6 +141,14 @@ struct SuccessView: View {
                     jwt = UserDefaults.standard.string(forKey: "authToken")
                     refreshToken = UserDefaults.standard.string(forKey: "refreshToken")
                     Task {
+                        await Global.refreshAccessToken { result in
+                            switch result {
+                            case .success(let newToken):
+                                print("Refreshed token: \(newToken)")
+                            case .failure(let error):
+                                print("Failed to refresh: \(error.localizedDescription)")
+                            }
+                        }
                         await userVM.getAllUsers()
                     }
                 }

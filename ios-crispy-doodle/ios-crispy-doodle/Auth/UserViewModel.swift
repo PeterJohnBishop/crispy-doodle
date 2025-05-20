@@ -146,8 +146,8 @@ import Observation
     
     func getAllUsers() async -> Bool {
 
-        guard let url = URL(string: "\(Global.baseURL)/users") else {
-            print("Invalid URL: \(Global.baseURL)/users")
+        guard let url = URL(string: "\(Global.baseURL)/api/users") else {
+            print("Invalid URL: \(Global.baseURL)/api/users")
             return false
         }
 
@@ -199,8 +199,8 @@ import Observation
     
     func getUserByID() async -> Bool {
 
-        guard let url = URL(string: "\(Global.baseURL)/users/\(user.id)") else {
-            print("Invalid URL: \(Global.baseURL)/users/\(user.id)")
+        guard let url = URL(string: "\(Global.baseURL)/api/users/\(user.id)") else {
+            print("Invalid URL: \(Global.baseURL)/api/users/\(user.id)")
             return false
         }
 
