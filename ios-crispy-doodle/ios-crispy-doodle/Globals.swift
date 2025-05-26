@@ -23,7 +23,7 @@ struct Global {
             return
         }
 
-        guard let url = URL(string: "\(baseURL)/api/refresh") else {
+        guard let url = URL(string: "\(baseURL)/refresh") else {
             Task {
                 await completion(.failure(NSError(domain: "", code: 400, userInfo: [NSLocalizedDescriptionKey: "Invalid refresh URL"])))
             }

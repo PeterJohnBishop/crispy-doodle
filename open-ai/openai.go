@@ -14,7 +14,6 @@ import (
 func OpenAI() *openai.Client {
 
 	client := openai.NewClient(global.OpenAIKey)
-	log.Printf("[OPENAI] API Key: %s", global.OpenAIKey)
 
 	log.Printf("[CONNECTED] to OpenAI")
 	return client

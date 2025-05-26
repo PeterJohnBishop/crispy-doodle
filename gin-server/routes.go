@@ -18,13 +18,13 @@ func addOpenUserRoutes(r *gin.Engine, db *sql.DB) {
 	r.POST("/register", func(c *gin.Context) {
 		postgresdb.RegisterUser(db, c)
 	})
+	r.GET("/refresh", func(c *gin.Context) {
+		postgresdb.Refresh(c)
+	})
 }
 
 func addProtectedUserRoutes(r *gin.RouterGroup, db *sql.DB) {
 
-	r.GET("/refresh", func(c *gin.Context) {
-		postgresdb.Refresh(c)
-	})
 	r.GET("/users", func(c *gin.Context) {
 		postgresdb.GetUsers(db, c)
 	})

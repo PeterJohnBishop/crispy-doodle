@@ -36,6 +36,27 @@ struct SuccessView: View {
                     .shadow(color: .gray.opacity(0.4), radius: 4, x: 2, y: 2)
             )
     }
+    
+    private var refreshButton: some View {
+        Button("Refresh", action: {
+            Global.refreshAccessToken { result in
+                switch result {
+                case .success(let newToken):
+                    print("Refreshed token: \(newToken)")
+                case .failure(let error):
+                    print("Failed to refresh: \(error.localizedDescription)")
+                }
+            }
+        })
+            .fontWeight(.ultraLight)
+            .foregroundColor(.black)
+            .padding()
+            .background(
+                RoundedRectangle(cornerRadius: 8)
+                    .fill(Color.white)
+                    .shadow(color: .gray.opacity(0.4), radius: 4, x: 2, y: 2)
+            )
+    }
 
     var body: some View {
         NavigationStack {
@@ -141,14 +162,6 @@ struct SuccessView: View {
                     jwt = UserDefaults.standard.string(forKey: "authToken")
                     refreshToken = UserDefaults.standard.string(forKey: "refreshToken")
                     Task {
-                        await Global.refreshAccessToken { result in
-                            switch result {
-                            case .success(let newToken):
-                                print("Refreshed token: \(newToken)")
-                            case .failure(let error):
-                                print("Failed to refresh: \(error.localizedDescription)")
-                            }
-                        }
                         await userVM.getAllUsers()
                     }
                 }

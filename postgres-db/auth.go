@@ -2,6 +2,7 @@ package postgresdb
 
 import (
 	"errors"
+	"fmt"
 	"net/http"
 	"os"
 	"strings"
@@ -48,8 +49,10 @@ func GenerateTokens(userID string) (accessToken, refreshToken string, err error)
 }
 
 func ValidateToken(tokenStr string, isRefresh bool) (*UserClaims, error) {
+	fmt.Printf("Validating token: %s\n", tokenStr)
 	secret := accessSecret
 	if isRefresh {
+		fmt.Println("Using refresh token secret")
 		secret = refreshSecret
 	}
 
@@ -58,6 +61,7 @@ func ValidateToken(tokenStr string, isRefresh bool) (*UserClaims, error) {
 	})
 
 	if err != nil {
+		fmt.Printf("Error parsing token: %v\n", err)
 		return nil, err
 	}
 
