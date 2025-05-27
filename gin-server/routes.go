@@ -31,8 +31,8 @@ func addProtectedUserRoutes(r *gin.RouterGroup, db *sql.DB) {
 	r.GET("/users/:id", func(c *gin.Context) {
 		postgresdb.GetUserByID(db, c)
 	})
-	r.PUT("/users/:id", func(c *gin.Context) {
-		postgresdb.UpdateUserByID(db, c)
+	r.PUT("/users", func(c *gin.Context) {
+		postgresdb.UpdateUser(db, c)
 	})
 	r.DELETE("/users/:id", func(c *gin.Context) {
 		postgresdb.DeleteUserByID(db, c)

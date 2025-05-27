@@ -220,19 +220,17 @@ func GetUserByID(db *sql.DB, c *gin.Context) {
 	c.JSON(http.StatusOK, user)
 }
 
-func UpdateUserByID(db *sql.DB, c *gin.Context) {
-	id := c.Param("id")
-	fmt.Println("Updating user with ID:", id)
-
+func UpdateUser(db *sql.DB, c *gin.Context) {
 	var user User
+
 	if err := c.ShouldBindJSON(&user); err != nil {
-		fmt.Println("Failed to bind request body:", err)
+		fmt.Println("Failed to bind JSON:", err)
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
 
 	query := `UPDATE users SET name=$1, email=$2, password=$3, online=$4, channels=$5, updated=EXTRACT(EPOCH FROM now()) WHERE id=$6`
-	result, err := db.ExecContext(c, query, user.Name, user.Email, user.Password, user.Online, user.Channels, id)
+	result, err := db.ExecContext(c, query, user.Name, user.Email, user.Password, user.Online, user.Channels, user.ID)
 	if err != nil {
 		fmt.Println("Update query failed:", err)
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
@@ -247,12 +245,12 @@ func UpdateUserByID(db *sql.DB, c *gin.Context) {
 	}
 
 	if rowsAffected == 0 {
-		fmt.Println("No rows updated for ID:", id)
+		fmt.Println("No rows updated for ID:", user.ID)
 		c.JSON(http.StatusNotFound, gin.H{"error": "User not found"})
 		return
 	}
 
-	fmt.Println("User updated successfully:", id)
+	fmt.Println("User updated successfully:", user.ID)
 	c.JSON(http.StatusOK, gin.H{"message": "User updated!"})
 }
 

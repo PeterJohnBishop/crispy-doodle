@@ -249,5 +249,70 @@ import Observation
             return false
         }
     }
+    
+    func updateUser(updateUser: User) async -> Bool {
+        
+        guard let url = URL(string: "\(Global.baseURL)/api/users") else {
+            print("Invalid login URL")
+            return false
+        }
+        
+        guard let token = UserDefaults.standard.string(forKey: "authToken") else {
+            self.error = "Missing auth token"
+            print("Missing auth token from UserDefaults")
+            return false
+        }
+
+        var request = URLRequest(url: url)
+        request.httpMethod = "PUT"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+
+        let body: [String: Any] = [
+            "id": updateUser.email,
+            "name": updateUser.name,
+            "email": updateUser.email,
+            "password": updateUser.password ?? "",
+            "online": updateUser.online,
+            "channels": updateUser.channels,
+            "created": updateUser.created
+        ]
+
+        guard let jsonData = try? JSONSerialization.data(withJSONObject: body) else {
+            print("Failed to serialize JSON body")
+            return false
+        }
+
+        request.httpBody = jsonData
+        print("Sending PUT request to \(url.absoluteString)")
+        print("Authorization: Bearer \(token.prefix(20))...")
+        
+        do {
+            let (data, response) = try await URLSession.shared.data(for: request)
+
+            if let httpResponse = response as? HTTPURLResponse {
+                print("Received response with status code: \(httpResponse.statusCode)")
+
+                if httpResponse.statusCode == 200 {
+                    print("User updated successfully")
+                    return true
+                } else {
+                    let responseBody = String(data: data, encoding: .utf8) ?? "Unreadable response body"
+                    print("Unexpected status code. Response body: \(responseBody)")
+                    self.error = "Server responded with status code: \(httpResponse.statusCode)"
+                    return false
+                }
+            } else {
+                print("Invalid HTTPURLResponse")
+                self.error = "Invalid response from server"
+                return false
+            }
+        } catch {
+            print("Exception occurred during request: \(error)")
+            self.error = "Exception: \(error.localizedDescription)"
+            return false
+        }
+        
+    }
 
 }

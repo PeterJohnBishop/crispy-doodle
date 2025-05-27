@@ -7,6 +7,10 @@
 
 import SwiftUI
 
+// gets user stored in UserDefaults
+// gets tokens stored in UserDefaults
+// gets all users
+
 struct SuccessView: View {
     @StateObject private var userVM = UserViewModel()
 
@@ -120,7 +124,8 @@ struct SuccessView: View {
                                                     }
                                                     Spacer()
                                                     Button {
-                                                        // Handle action
+                                                        // Create Channel
+                                                        // Update Users with Channel ID
                                                     } label: {
                                                         Image(systemName: "chevron.right").tint(.black)
                                                     }
@@ -151,6 +156,10 @@ struct SuccessView: View {
                         do {
                             print(String(data: data, encoding: .utf8) ?? "No data")
                             currentUser = try User.decodeUser(from: data)
+                            currentUser?.online = true
+                            Task {
+                                try await userVM.updateUser(updateUser: currentUser!)
+                            }
                         } catch {
                             print("Failed to decode user: \(error.localizedDescription)")
                             currentUser = nil // or fallback User()

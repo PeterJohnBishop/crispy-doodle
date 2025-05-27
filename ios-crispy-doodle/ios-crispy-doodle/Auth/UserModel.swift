@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import Observation
 
 struct User: Codable, Identifiable, Equatable {
     var id: String
@@ -17,17 +16,6 @@ struct User: Codable, Identifiable, Equatable {
     var channels: [String] = []
     var created: Double
     var updated: Double
-
-    func encodeUser(_ user: User) -> Data? {
-        let encoder = JSONEncoder()
-        do {
-            return try encoder.encode(user)
-        } catch {
-            print("Encoding error: \(error)")
-            return nil
-        }
-    }
-
 }
 
 extension User {
@@ -45,6 +33,3 @@ extension User {
 }
 
 
-//ios1
-//
-//
