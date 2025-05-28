@@ -1,19 +1,43 @@
 package boba
 
 import (
+	"bytes"
+	"encoding/json"
 	"fmt"
+	"io"
+	"log"
+	"net/http"
 	"strings"
 
 	"github.com/charmbracelet/bubbles/cursor"
 	"github.com/charmbracelet/bubbles/textinput"
 	tea "github.com/charmbracelet/bubbletea"
 	"github.com/charmbracelet/lipgloss"
+	"github.com/lib/pq"
 )
 
 type Login struct {
 	focusIndex int
 	inputs     []textinput.Model
 	cursorMode cursor.Mode
+}
+
+type User struct {
+	ID       string         `json:"id"`
+	Name     string         `json:"name"`
+	Email    string         `json:"email"`
+	Password string         `json:"password"`
+	Online   bool           `json:"online"`
+	Channels pq.StringArray `json:"channels" sql:"type:text[]"`
+	Created  int64          `json:"created"`
+	Updated  int64          `json:"updated"`
+}
+
+type LoginResponse struct {
+	Message      string `json:"message"`
+	RefreshToken string `json:"refreshToken"`
+	Token        string `json:"token"`
+	User         User   `json:"user"`
 }
 
 var (
@@ -87,9 +111,21 @@ func (m Login) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 			s := msg.String()
 
 			// Did the user press enter while the submit button was focused?
-			// If so, verify cridentials.
+			// If so, verify cridentials:
 			if s == "enter" && m.focusIndex == len(m.inputs) {
-				return m, tea.Quit
+				email := m.inputs[0].Value()
+				password := m.inputs[1].Value()
+				if email == "" || password == "" {
+					fmt.Println("Email and password cannot be empty.")
+					return m, nil
+				}
+				resp, err := loginUser(email, password)
+				if err != nil {
+					fmt.Println("Login failed:", err)
+					return m, nil
+				}
+				menu := InitialRequestMenu(resp.Token, resp.RefreshToken)
+				return menu, nil
 			}
 
 			// Cycle indexes
@@ -163,4 +199,32 @@ func (m Login) View() string {
 	b.WriteString(helpStyle.Render(" (ctrl+r to change style)"))
 
 	return b.String()
+}
+
+func loginUser(email string, password string) (LoginResponse, error) {
+	data := map[string]string{
+		"email":    email,
+		"password": password,
+	}
+
+	jsonData, _ := json.Marshal(data)
+
+	resp, err := http.Post("http://localhost:8080/login", "application/json", bytes.NewBuffer(jsonData))
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer resp.Body.Close()
+
+	body, _ := io.ReadAll(resp.Body)
+	var loginResponse LoginResponse
+	if err := json.Unmarshal(body, &loginResponse); err != nil {
+		log.Fatal("Error unmarshalling response:", err)
+		return LoginResponse{}, err
+	}
+	if resp.StatusCode != http.StatusOK {
+		log.Fatalf("Login failed: %s", loginResponse.Message)
+		return LoginResponse{}, fmt.Errorf("login failed: %s", loginResponse.Message)
+	}
+
+	return loginResponse, nil
 }
