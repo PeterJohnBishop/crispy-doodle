@@ -40,6 +40,11 @@ type LoginResponse struct {
 	User         User   `json:"user"`
 }
 
+type LoginSuccessMsg struct {
+	Token        string
+	RefreshToken string
+}
+
 var (
 	focusedStyle        = lipgloss.NewStyle().Foreground(lipgloss.Color("205"))
 	blurredStyle        = lipgloss.NewStyle().Foreground(lipgloss.Color("240"))
@@ -124,8 +129,9 @@ func (m Login) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 					fmt.Println("Login failed:", err)
 					return m, nil
 				}
-				menu := InitialRequestMenu(resp.Token, resp.RefreshToken)
-				return menu, nil
+				return m, func() tea.Msg {
+					return LoginSuccessMsg{Token: resp.Token, RefreshToken: resp.RefreshToken}
+				}
 			}
 
 			// Cycle indexes

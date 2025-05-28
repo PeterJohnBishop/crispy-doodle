@@ -10,7 +10,7 @@ import (
 
 func main() {
 
-	if _, err := tea.NewProgram(boba.InitialLogin()).Run(); err != nil {
+	if _, err := tea.NewProgram(boba.InitialAppModel()).Run(); err != nil {
 
 		fmt.Printf("could not start program: %s\n", err)
 		os.Exit(1)
