@@ -43,6 +43,7 @@ type LoginResponse struct {
 type LoginSuccessMsg struct {
 	Token        string
 	RefreshToken string
+	User         User
 }
 
 var (
@@ -130,7 +131,7 @@ func (m Login) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 					return m, nil
 				}
 				return m, func() tea.Msg {
-					return LoginSuccessMsg{Token: resp.Token, RefreshToken: resp.RefreshToken}
+					return LoginSuccessMsg{Token: resp.Token, RefreshToken: resp.RefreshToken, User: resp.User}
 				}
 			}
 

@@ -35,7 +35,7 @@ func (m AppModel) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 	switch msg := msg.(type) {
 
 	case LoginSuccessMsg:
-		m.requestMenu = InitialRequestMenu(msg.Token, msg.RefreshToken)
+		m.requestMenu = InitialRequestMenu(msg.Token, msg.RefreshToken, msg.User)
 		m.currentView = ViewRequestsMenu
 		return m, nil
 	}
