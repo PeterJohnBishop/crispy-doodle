@@ -1,33 +1,29 @@
 package boba
 
-import tea "github.com/charmbracelet/bubbletea"
+import (
+	tea "github.com/charmbracelet/bubbletea"
+)
 
 type AppView int
 
 const (
 	ViewLogin AppView = iota
 	ViewRequestsMenu
-	ViewOther // Add more views as needed
+	ViewUserInput
 )
-
-type AppModel struct {
-	currentView AppView
-	login       Login
-	requestMenu RequestMenu
-}
 
 func InitialAppModel() AppModel {
 	return AppModel{
 		currentView: ViewLogin,
 		login:       InitialLogin(),
-		requestMenu: RequestMenu{}, // initialized later after login
+		requestMenu: RequestMenu{},
 	}
 }
 
 func (m AppModel) Init() tea.Cmd {
 	return tea.Batch(
 		m.login.Init(),
-		m.requestMenu.Init(), // Initialize the request menu
+		m.requestMenu.Init(),
 	)
 }
 
@@ -38,6 +34,25 @@ func (m AppModel) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 		m.requestMenu = InitialRequestMenu(msg.Token, msg.RefreshToken, msg.User)
 		m.currentView = ViewRequestsMenu
 		return m, nil
+
+	case tea.KeyMsg:
+
+		if m.currentView == ViewUserInput && msg.String() == "enter" {
+			input := m.userInput.inputs[0].Value()
+			m.currentView = ViewRequestsMenu
+
+			return m, func() tea.Msg {
+				return UserIDInputMsg(input)
+			}
+		}
+
+		if m.currentView == ViewRequestsMenu && m.requestMenu.cursor == 4 && msg.String() == "enter" {
+			m.userInput = InitialInput("user id", func(input string) (string, error) {
+				return input, nil
+			})
+			m.currentView = ViewUserInput
+			return m, m.userInput.Init()
+		}
 	}
 
 	switch m.currentView {
@@ -50,6 +65,11 @@ func (m AppModel) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 		updatedMenu, cmd := m.requestMenu.Update(msg)
 		m.requestMenu = updatedMenu.(RequestMenu)
 		return m, cmd
+
+	case ViewUserInput:
+		newInput, cmd := m.userInput.Update(msg)
+		m.userInput = newInput.(Input)
+		return m, cmd
 	}
 
 	return m, nil
@@ -61,6 +81,8 @@ func (m AppModel) View() string {
 		return m.login.View()
 	case ViewRequestsMenu:
 		return m.requestMenu.View()
+	case ViewUserInput:
+		return m.userInput.View()
 	default:
 		return "Unknown view"
 	}

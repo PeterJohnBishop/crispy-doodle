@@ -12,50 +12,6 @@ import (
 	"github.com/charmbracelet/bubbles/cursor"
 	"github.com/charmbracelet/bubbles/textinput"
 	tea "github.com/charmbracelet/bubbletea"
-	"github.com/charmbracelet/lipgloss"
-	"github.com/lib/pq"
-)
-
-type Login struct {
-	focusIndex int
-	inputs     []textinput.Model
-	cursorMode cursor.Mode
-}
-
-type User struct {
-	ID       string         `json:"id"`
-	Name     string         `json:"name"`
-	Email    string         `json:"email"`
-	Password string         `json:"password"`
-	Online   bool           `json:"online"`
-	Channels pq.StringArray `json:"channels" sql:"type:text[]"`
-	Created  int64          `json:"created"`
-	Updated  int64          `json:"updated"`
-}
-
-type LoginResponse struct {
-	Message      string `json:"message"`
-	RefreshToken string `json:"refreshToken"`
-	Token        string `json:"token"`
-	User         User   `json:"user"`
-}
-
-type LoginSuccessMsg struct {
-	Token        string
-	RefreshToken string
-	User         User
-}
-
-var (
-	focusedStyle        = lipgloss.NewStyle().Foreground(lipgloss.Color("205"))
-	blurredStyle        = lipgloss.NewStyle().Foreground(lipgloss.Color("240"))
-	cursorStyle         = focusedStyle
-	noStyle             = lipgloss.NewStyle()
-	helpStyle           = blurredStyle
-	cursorModeHelpStyle = lipgloss.NewStyle().Foreground(lipgloss.Color("244"))
-
-	focusedButton = focusedStyle.Render("[ Submit ]")
-	blurredButton = fmt.Sprintf("[ %s ]", blurredStyle.Render("Submit"))
 )
 
 func InitialLogin() Login {
